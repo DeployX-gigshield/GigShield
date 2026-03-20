@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #080b14;
+  --bg2:          #0d1120;
+  --surface:      #111827;
+  --surface2:     #1a2235;
+  --surface3:     #1f2a40;
+  --border:       #1e2d45;
+  --border2:      #263550;
+
+  --blue:         #3b82f6;
+  --blue-bright:  #60a5fa;
+  --blue-dim:     #1e3a5f;
+  --blue-glow:    rgba(59,130,246,0.15);
+
+  --indigo:       #6366f1;
+  --indigo-dim:   #1e1b4b;
+
+  --green:        #10b981;
+  --green-bright: #34d399;
+  --green-dim:    #064e3b;
+  --green-glow:   rgba(16,185,129,0.12);
+
+  --yellow:       #f59e0b;
+  --yellow-bright:#fbbf24;
+  --yellow-dim:   #451a03;
+  --yellow-glow:  rgba(245,158,11,0.12);
+
+  --red:          #ef4444;
+  --red-bright:   #f87171;
+  --red-dim:      #450a0a;
+  --red-glow:     rgba(239,68,68,0.12);
+
+  --orange:       #f97316;
+  --orange-dim:   #431407;
+
+  --text:         #f1f5f9;
+  --text-2:       #cbd5e1;
+  --text-muted:   #64748b;
+  --text-dim:     #94a3b8;
+
+  --radius:       14px;
+  --radius-sm:    8px;
+  --radius-xs:    5px;
+
+  --shadow:       0 4px 24px rgba(0,0,0,0.4);
+  --shadow-sm:    0 2px 8px rgba(0,0,0,0.3);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  font-size: 13px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ── Animations ── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(0.85); }
+}
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes count-up {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+  50%       { box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+}
+
+.animate-in { animation: fade-in 0.3s ease both; }
+.animate-slide { animation: slide-in 0.25s ease both; }
+
+/* ── Live dot ── */
+.live-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse-dot 1.8s ease-in-out infinite;
+}
+.live-dot.yellow { background: var(--yellow); }
+.live-dot.red    { background: var(--red); }
+.live-dot.blue   { background: var(--blue); }
+
+/* ── Ticker ── */
+.ticker-wrap {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 7px 0;
+}
+.ticker-inner {
+  display: inline-flex;
+  gap: 0;
+  animation: ticker 40s linear infinite;
+}
+.ticker-inner:hover { animation-play-state: paused; }
+
+/* ── Skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface2) 25%, var(--surface3) 50%, var(--surface2) 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: 6px;
+}
+
+/* ── Progress ring ── */
+.ring-container { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.ring-container svg { transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--surface3); }
+.ring-fill { fill: none; stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+
+/* ── Table ── */
+.gs-table { width: 100%; border-collapse: collapse; }
+.gs-table th {
+  text-align: left; padding: 9px 14px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted);
+  border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.gs-table td {
+  padding: 11px 14px; font-size: 12.5px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+.gs-table tbody tr { transition: background 0.12s; }
+.gs-table tbody tr:hover { background: var(--surface2); }
+.gs-table tbody tr:last-child td { border-bottom: none; }
+
+/* ── Btn ── */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: var(--radius-sm);
+  font-size: 12px; font-weight: 500; cursor: pointer;
+  border: 1px solid var(--border2); background: var(--surface2);
+  color: var(--text-dim); transition: all 0.15s;
+}
+.btn:hover { background: var(--surface3); color: var(--text); border-color: var(--text-muted); }
+.btn-primary { background: var(--blue); border-color: var(--blue); color: #fff; }
+.btn-primary:hover { background: var(--blue-bright); border-color: var(--blue-bright); color: #fff; }
+
+/* ── Tag ── */
+.tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 2px 8px; border-radius: 20px;
+  font-size: 10.5px; font-weight: 600; white-space: nowrap;
+}
+
+/* ── Mono ── */
+.mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ── Divider ── */
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+/* ── Tooltip ── */
+.recharts-tooltip-wrapper { outline: none !important; }
